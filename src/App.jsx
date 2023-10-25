@@ -18,7 +18,7 @@ function App() {
         <Route path='/sign-up' element={<SignUp/>}/>
         <Route path='/account-recovery' element={<AccountRecovery/>} />
         <Route path='/reset-password' element={<ResetPassword/>} />
-        <Route path='/indexapp' element={<IndexApp/>} />
+        <Route path='/index' element={<IndexApp/>} />
 
       </Routes>
     </BrowserRouter>
