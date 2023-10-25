@@ -1,10 +1,17 @@
 import { useState } from 'react'
+import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom'
+import Home from './routes/Home'
+
+// Rutas
+
 function App() {
 
   return (
-    <>
-      <p className='text-2xl font-bold text-center'>Texto prueba</p>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home/>}/>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
