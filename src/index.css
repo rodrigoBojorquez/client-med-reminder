@@ -5,3 +5,9 @@
 body {
     font-family: 'Rubik', sans;
   }
+
+
+  .gridT{
+    display:grid;
+    grid-template-columns: 45% 10% 45% ;
+  }
