@@ -23,7 +23,7 @@ function Home() {
               Crea tu cuenta
             </button>
           </Link>
-          <Link>
+          <Link to={"/login"}>
             <button className='px-5 py-2 rounded-full border-2 border-[#1F4D36] text-[#1F4D36] text-lg font-medium'>
               Inicia Sesión
             </button>
@@ -38,9 +38,11 @@ function Home() {
           <h2 className='text-[#1F4D36] text-7xl tracking-normal leading-[1.25]'>Cuida de tu bienestar con facilidad</h2>
           </div>
           <p className='tracking-wider'>Con Med-Reminder, te brindamos una plataforma fácil de usar y altamente personalizable que se adapta a tus necesidades individuales. Ya sea que necesites llevar un registro de tus propios medicamentos o administrar la toma de medicamentos de un ser querido, nuestra aplicación te facilitará la vida.</p>
-          <button className='px-5 py-2 rounded-2xl border-2 bg-[#1F4D36] text-white text-lg font-extralight w-1/3 mb-10'>
-            Inicia Sesion
-          </button>
+          <Link to={"/login"}>
+            <button className='px-5 py-2 rounded-2xl border-2 bg-[#1F4D36] text-white text-lg font-extralight w-1/3 mb-10'>
+              Inicia Sesion
+            </button>
+          </Link>
         </article>
 
         {/* imagenes del home */}
