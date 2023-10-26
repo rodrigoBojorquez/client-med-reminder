@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 // IMAGENES E ICONOS
 import Home from "../../../assets/icons/Home.svg"
 import calendar from "../../../assets/icons/calndar.svg"
+import LogoMedReminder from "../../../assets/icons/logo-pagina.svg"
 import logout from "../../../assets/icons/logout.svg"
 import user from "../../../assets/icons/user.svg"
-import LogoMedReminder from "../../../assets/icons/logo-pagina.svg"
 function Navbar() {
     return (
         <div>
@@ -25,7 +25,7 @@ function Navbar() {
                     </Link>
 
 
-                    <Link to={"/calendar"} className='flex items-center text-white gap-2'>
+                    <Link to={"/calendario"} className='flex items-center text-white gap-2'>
                         <img src={calendar} alt='svg' />
                         <p className='text-xl'>Calendario</p>
                     </Link>

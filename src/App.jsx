@@ -1,5 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Error404 from './components/Error404'
 import AccountRecovery from './routes/AccountRecovery'
+import Calendario from './routes/Calendario'
 import Home from './routes/Home'
 import IndexApp from './routes/IndexApp'
 import Login from './routes/Login'
@@ -19,6 +21,11 @@ function App() {
         <Route path='/account-recovery' element={<AccountRecovery/>} />
         <Route path='/reset-password' element={<ResetPassword/>} />
         <Route path='/index' element={<IndexApp/>} />
+        <Route path='/calendario' element={<Calendario/>} />
+        <Route path='/*' element={<Error404/>} />
+
+
+
 
       </Routes>
     </BrowserRouter>
