@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from '../Navbar';
 import Manana from './Manana';
-import Mediodia from './Mediodia';
 import Noche from './Noche';
 import SoloCuandoNececito from './SoloCuandoNececito';
 import Tarde from './Tarde';
@@ -24,15 +23,13 @@ function TablaMed() {
                 <div className='bg-white m-2 p-10'>
                     <h1 className='text-6xl text-[#1F4D36] text-center '>Tabla de Medicamentos</h1>
                     <h3 className='text-5xl text-[#429b6e] text-center mb-4'>
-                        <span>{"<<"}</span> dd/mm/yy <span>{">>"}</span>
+                        <button className='font-bold '>{"<<"}</button> dd/mm/yy <button className='font-bold'>{">>"}</button>
                     </h3>
-                    <section className='grid grid-cols-5 gap-5'>
+                    <section className='grid grid-cols-4 gap-5'>
                         <div>
                             <Manana />
                         </div>
-                        <div>
-                            <Mediodia />
-                        </div>
+                       
                         <div>
                             <Tarde />
                         </div>
@@ -54,7 +51,7 @@ function TablaMed() {
                             <h2 className="text-4xl font-semibold mb-4 text-center m-5">Nuevo Medicamento</h2>
                             <div className="mb-4">
                                 <label htmlFor="nombreMed">Nuevo Medicamento</label>
-                                <input type="text" id="nombreMed" className="border p-2 w-full" />
+                                <input required type="text" id="nombreMed" className="border p-2 w-full" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="tipoMed">Tipo de Medicina</label>
@@ -67,21 +64,21 @@ function TablaMed() {
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="dosis">Dosis</label>
-                                <input type="text" id="dosis" className="border p-2 w-full" />
+                                <input required type="text" id="dosis" className="border p-2 w-full" />
                             </div>
 
                             <div className='grid grid-cols-3 gap-5'>
                             <div className="mb-4">
                                 <label htmlFor="horaToma">Hora Inicial de Toma</label>
-                                <input type="time" id="horaToma" className="border p-2 w-full" />
+                                <input required type="time" id="horaToma" className="border p-2 w-full" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="numDosis">Número de Dosis</label>
-                                <input type="number" id="numDosis" className="border p-2 w-full" />
+                                <input required type="number" id="numDosis" className="border p-2 w-full" />
                             </div>
                             <div className="mb-4">
                                 <label htmlFor="horas">Cada Cuántas Horas</label>
-                                <input type="number" id="horas" className="border p-2 w-full" />
+                                <input required type="number" id="horas" className="border p-2 w-full" />
                             </div>
                             </div>
                             
