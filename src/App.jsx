@@ -44,7 +44,6 @@ function App() {
         <Route path='/reset-password' element={<ResetPassword/>} />
         <Route path='/index' element={autenticado ? <IndexApp setAutenticado={setAutenticado}/> : <Navigate to="/login" />} />
         <Route path='/edit-profile' element={autenticado ? <EditProfile/> : <Navigate to="/login"/>}/>
-        <Route path='/calendario' element={<Calendario/>} />
         <Route path='/*' element={<Error404/>} />
       </Routes>
     </BrowserRouter>
