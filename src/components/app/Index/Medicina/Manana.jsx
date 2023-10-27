@@ -19,7 +19,7 @@ function Manana() {
   };
 
   return (
-    <div className='bg-rose-400 p-6'>
+    <div className='bg-[#C0DBEA] p-6'>
       <p>Mañana</p>
       <div className="h-[300px] overflow-y-auto">
         {TomarMedicina.map((medication, index) => {

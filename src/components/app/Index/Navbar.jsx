@@ -31,7 +31,7 @@ function Navbar({setAutenticado}) {
                     </Link>
 
 
-                    <Link to={"/calendario"} className='flex items-center text-white gap-2'>
+                    <Link to={"/calendar"} className='flex items-center text-white gap-2'>
                         <img src={calendar} alt='svg' />
                         <p className='text-xl'>Calendario</p>
                     </Link>

@@ -21,8 +21,8 @@ function TablaMed() {
             <Navbar />
             <div className='bg-[#F2F4EA] h-screen w-auto grid place-content-center'>
                 <div className='bg-white m-2 p-10'>
-                    <h1 className='text-6xl text-[#1F4D36] text-center '>Tabla de Medicamentos</h1>
-                    <h3 className='text-5xl text-[#429b6e] text-center mb-4'>
+                    {/* <h1 className='text-3xl text-[#1F4D36] text-center '>Tabla de Medicamentos</h1> */}
+                    <h3 className='text-4xl text-[#429b6e] text-center mb-4'>
                         <button className='font-bold '>{"<<"}</button> dd/mm/yy <button className='font-bold'>{">>"}</button>
                     </h3>
                     <section className='grid grid-cols-4 gap-5'>
