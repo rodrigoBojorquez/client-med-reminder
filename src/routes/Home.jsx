@@ -18,7 +18,7 @@ function Home() {
         <p className='text-[#1F4D36] font-serif text-lg tracking-wide'>Porque tu salud es lo más importante para nosotros</p>
 
         <div className='flex gap-4 items-center'>
-          <Link>
+          <Link to={"/sign-up"}>
             <button className='px-5 py-2 rounded-full border-2 border-[#1F4D36] text-[#1F4D36] text-lg font-medium'>
               Crea tu cuenta
             </button>

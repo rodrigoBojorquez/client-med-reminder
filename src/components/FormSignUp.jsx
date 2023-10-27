@@ -1,17 +1,82 @@
-import {useState} from 'react'
+import axios from 'axios';
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
+import InfoAlert from './InfoAlert';
+import BadAlert from './BadAlert';
 
-function FormSignUp({img}) {
+function FormSignUp({ img}) {
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState({
+        status: false,
+        title: "",
+        message: "",
+    });
+    const [infoMessage, setInfoMessage] = useState({
+        status: false,
+        title: "",
+        message: "",
+    });
 
     const handleSubmitSignUp = e => {
         e.preventDefault();
-        console.log("se ha enviado el formulario")
+
+        if (password !== confirmPassword) {
+            setErrorMessage({
+                status: true,
+                title: "Error",
+                message: "Las contraseñas deben ser iguales",
+            });
+        }
+        else {
+            const user_data = {
+                username: username,
+                email: email,
+                user_password: password,
+            }
+
+            axios.post("http://127.0.0.1:5000/users/sign-up", user_data)
+                .then(res => {
+                    setInfoMessage({
+                        status: true,
+                        title: "Bienvenido",
+                        message: "Su cuenta se ha creado con exito",
+                    });
+                    setTimeout(() => {
+                        window.location.href = "/login"
+                    }, 3000);
+                })
+                .catch(err => {
+                    setErrorMessage({
+                        status: true,
+                        title: "Error",
+                        message: err.response.data.Error,
+                    });
+                })
+        }
     }
+
+    // REINICIA EL MENSAJE DE ERROR
+    useEffect(() => {
+        if (errorMessage.status === true) {
+            setTimeout(
+                () => setErrorMessage({ status: false, title: "", message: "" }),
+                2500
+            );
+        }
+    }, [errorMessage.status]);
+
+    useEffect(() => {
+        if (infoMessage.status === true) {
+            setTimeout(
+                () => setInfoMessage({ status: false, title: "", message: "" }),
+                2500
+            );
+        }
+    }, [infoMessage.status]);
 
     return (
         <div className='bg-white flex rounded-lg drop-shadow-lg items-center'>
@@ -78,7 +143,7 @@ function FormSignUp({img}) {
 
 
                 <div className='flex flex-col mt-12'>
-                    {/* {errorMessage.status && (
+                    {errorMessage.status && (
                         <div className="mb-3">
                             <BadAlert
                                 title={errorMessage.title}
@@ -93,7 +158,7 @@ function FormSignUp({img}) {
                                 message={infoMessage.message}
                             />
                         </div>
-                    )} */}
+                    )}
 
                     <button type="submit" className='bg-[#1F4D36] h-14 text-white text-xl rounded-lg mb-12'>
                         Crear cuenta
@@ -108,7 +173,7 @@ function FormSignUp({img}) {
                 </p>
             </form>
 
-            <div className='w-1/2 p-1 lg:block object-contain'>
+            <div className='w-1/2 p-1 hidden lg:block object-contain'>
                 <img
                     src={img}
                     alt="Image Sign up"

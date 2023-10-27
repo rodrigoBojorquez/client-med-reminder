@@ -7,10 +7,16 @@ import calendar from "../../../assets/icons/calndar.svg"
 import LogoMedReminder from "../../../assets/icons/logo-pagina.svg"
 import logout from "../../../assets/icons/logout.svg"
 import user from "../../../assets/icons/user.svg"
-function Navbar() {
+function Navbar({setAutenticado}) {
+
+    const handleLogOut = () => {
+        setAutenticado(false)
+        localStorage.clear()
+    }
+
     return (
         <div>
-            <navbar className='bg-[#1F4D36] py-4 px-12 flex justify-between items-center'>
+            <nav className='bg-[#1F4D36] py-4 px-12 flex justify-between items-center'>
 
                 <div className='flex items-center gap-3'>
                     <img src={LogoMedReminder} alt="Logo" />
@@ -34,12 +40,16 @@ function Navbar() {
 
 
                 <div className='flex items-center gap-3 ml-12 text-white'>
-                    <p className='text-xl'>Username</p>
-                    <img  src={user} alt='svg' />
-                    <img src={logout} alt='log out' />
+                    <p className='text-xl'>{localStorage.getItem("username")}</p>
+                    <Link to={"/edit-profile"}>
+                        <img  src={user} alt='svg' />
+                    </Link>
+                    <button onClick={handleLogOut}>
+                        <img src={logout} alt='log out' />
+                    </button>
                 </div>
 
-            </navbar>
+            </nav>
         </div>
     )
 }
