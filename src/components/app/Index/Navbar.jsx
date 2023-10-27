@@ -41,7 +41,9 @@ function Navbar({setAutenticado}) {
 
                 <div className='flex items-center gap-3 ml-12 text-white'>
                     <p className='text-xl'>{localStorage.getItem("username")}</p>
-                    <img  src={user} alt='svg' />
+                    <Link to={"/edit-profile"}>
+                        <img  src={user} alt='svg' />
+                    </Link>
                     <button onClick={handleLogOut}>
                         <img src={logout} alt='log out' />
                     </button>

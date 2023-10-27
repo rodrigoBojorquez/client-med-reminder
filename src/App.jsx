@@ -8,6 +8,7 @@ import Home from './routes/Home'
 import IndexApp from './routes/IndexApp'
 import Login from './routes/Login'
 import ResetPassword from './routes/ResetPassword'
+import EditProfile from './routes/EditProfile'
 import SignUp from './routes/SignUp'
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
         <Route path='/account-recovery' element={<AccountRecovery/>} />
         <Route path='/reset-password' element={<ResetPassword/>} />
         <Route path='/index' element={autenticado ? <IndexApp setAutenticado={setAutenticado}/> : <Navigate to="/login" />} />
+        <Route path='/edit-profile' element={autenticado ? <EditProfile/> : <Navigate to="/login"/>}/>
       </Routes>
     </BrowserRouter>
   )
