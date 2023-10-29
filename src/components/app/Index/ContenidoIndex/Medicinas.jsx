@@ -17,7 +17,7 @@ function Medicinas() {
 
     // Realiza la solicitud HTTP al servidor Flask para obtener los datos de las medicinas.
     useEffect(() => {
-        axios.get('/medicines') // Cambia la URL según tu configuración de rutas en Flask.
+        axios.get('http://127.0.0.1:5000/medicines') // Cambia la URL según tu configuración de rutas en Flask.
             .then(response => {
                 setMedicinas(response.data.Data); // Almacena los datos en el estado.
             })
