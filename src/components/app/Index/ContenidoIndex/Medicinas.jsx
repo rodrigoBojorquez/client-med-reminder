@@ -2,8 +2,8 @@ import axios from 'axios'; // Importa la biblioteca axios.
 import React, { useEffect, useState } from 'react';
 import AddMedModal from '../Medicina/AddMeModal';
 
-function Medicinas() {
-    const [medicinas, setMedicinas] = useState([]); // Estado para almacenar los datos de medicinas.
+function    Medicinas() {
+    const [medicinas, setMedicinas] = useState([]);
 
     const [showAddMedModal, setShowAddMedModal] = useState(false);
 
@@ -15,16 +15,19 @@ function Medicinas() {
         setShowAddMedModal(false);
     };
 
-    // Realiza la solicitud HTTP al servidor Flask para obtener los datos de las medicinas.
+    const loadMedicinesUser = () => {
+        axios.get('http://127.0.0.1:5000/medicines') 
+        .then(response => {
+            setMedicinas(response.data.Data);
+        })
+        .catch(error => {
+            console.error('Error al obtener datos de medicinas:', error);
+        });
+    }
+
     useEffect(() => {
-        axios.get('http://127.0.0.1:5000/medicines') // Cambia la URL según tu configuración de rutas en Flask.
-            .then(response => {
-                setMedicinas(response.data.Data); // Almacena los datos en el estado.
-            })
-            .catch(error => {
-                console.error('Error al obtener datos de medicinas:', error);
-            });
-    }, []); // El segundo argumento vacío asegura que la solicitud se realice una vez al cargar el componente.
+        loadMedicinesUser();
+    }, []); 
 
     return (
         <div className='bg-white px-3 py-7 rounded-lg shadow-2xl h-full'>
@@ -39,7 +42,7 @@ function Medicinas() {
                 <div className='flex justify-center flex-col items-center gap-3'>
                     {medicinas.length > 0? (<>
                         {medicinas.map(medicina => (
-                        <p key={medicina.id_medicine} className='m-1 text-lg font-medium text-[#45474B]'>
+                        <p key={medicina.id_medicine} className='m-1 text-lg text-center font-medium text-[#45474B]'>
                             {medicina.name_medicine}
                         </p>
                     ))}
@@ -49,7 +52,7 @@ function Medicinas() {
                   
                 </div>
 
-                <div className='border-r-[3px] border-[#1F4D36] mr-10 w-auto'></div>
+                <div className='border-r-[3px] border-[#1F4D36] ml-5 w-auto'></div>
 
                 <div className='flex items-center flex-col justify-center gap-3'>
                     {medicinas.length > 0? (<>

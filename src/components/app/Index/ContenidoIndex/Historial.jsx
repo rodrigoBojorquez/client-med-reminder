@@ -15,7 +15,6 @@ function Historial() {
                 .then(res => {
                     if (res.data.Status === true) {
                         setAutenticado(true);
-                        console.log(token);
                     } else {
                         setAutenticado(false);
                     }
@@ -28,18 +27,18 @@ function Historial() {
 
     useEffect(() => {
         // Asegúrate de que el usuario esté autenticado antes de realizar la solicitud
-        if (autenticado) {
-            // Realiza una solicitud GET al backend para obtener el historial
-            axios.get(`http://127.0.0.1:5000/medicines/taken/${session_token}`)
-                .then(res => {
-                    if (res.data && res.data.Medicines) {
-                        setHistorial(res.data.Medicines);
-                    }
-                })
-                .catch(err => {
-                    console.error("Ha ocurrido un error al cargar el historial", err);
-                });
-        }
+        // if (autenticado) {
+        //     // Realiza una solicitud GET al backend para obtener el historial
+        //     axios.get(`http://127.0.0.1:5000/medicines/taken/${session_token}`)
+        //         .then(res => {
+        //             if (res.data && res.data.Medicines) {
+        //                 setHistorial(res.data.Medicines);
+        //             }
+        //         })
+        //         .catch(err => {
+        //             console.error("Ha ocurrido un error al cargar el historial", err);
+        //         });
+        // }
     }, [autenticado, session_token]);
 
     return (
