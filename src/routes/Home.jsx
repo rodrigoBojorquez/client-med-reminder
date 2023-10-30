@@ -1,6 +1,6 @@
 import React from 'react'
-import FormsFooter from '../components/FormsFooter'
 import { Link } from 'react-router-dom'
+import FormsFooter from '../components/FormsFooter'
 
 // IMAGENES E ICONOS
 import LogoMedReminder from "../assets/icons/med-reminder.svg"
@@ -8,7 +8,7 @@ import HomeImage from "../assets/images/home-image.png"
 
 function Home() {
   return (
-    <div className='bg-[#F2F4EA]'>
+    <div className='bg-[#F2F4EA] w-full'>
       <header className='flex items-center justify-between px-12 pt-6 pb-5'>
         <div className='flex items-end gap-4'>
           <img src={LogoMedReminder} alt="Logo" />

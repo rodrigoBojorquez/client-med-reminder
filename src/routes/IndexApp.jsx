@@ -7,7 +7,9 @@ function IndexApp({setAutenticado}) {
             <Navbar
                 setAutenticado={setAutenticado}
             />
+            <div  className='bg-[#F2F4EA] w-full'>
             <HomeIndex />
+            </div>
         </div>
     )
 }

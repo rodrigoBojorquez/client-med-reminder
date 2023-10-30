@@ -1,69 +1,44 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 function Historial() {
-    const { session_token } = useParams();
-    const [historial, setHistorial] = useState([]);
-    const [autenticado, setAutenticado] = useState(false);
+    const [medicines, setMedicines] = useState([]);
 
     useEffect(() => {
-        // Verifica si el usuario está autenticado antes de realizar la solicitud
-        const token = localStorage.getItem("session_token");
-        if (token !== null) {
-            axios.get(`http://127.0.0.1:5000/users/${token}`)
-                .then(res => {
-                    if (res.data.Status === true) {
-                        setAutenticado(true);
-                    } else {
-                        setAutenticado(false);
-                    }
-                })
-                .catch(err => {
-                    console.error("Ha ocurrido un error", err);
-                });
-        }
+        // Realizar la solicitud a la API Flask para obtener el historial de medicamentos
+        fetch('/medicines/taken/session_token_here') // Reemplaza 'session_token_here' con el token de sesión correcto
+            .then(response => response.json())
+            .then(data => {
+                if (data.Medicines) {
+                    setMedicines(data.Medicines);
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener el historial de medicamentos', error);
+            });
     }, []);
-
-    useEffect(() => {
-        // Asegúrate de que el usuario esté autenticado antes de realizar la solicitud
-        // if (autenticado) {
-        //     // Realiza una solicitud GET al backend para obtener el historial
-        //     axios.get(`http://127.0.0.1:5000/medicines/taken/${session_token}`)
-        //         .then(res => {
-        //             if (res.data && res.data.Medicines) {
-        //                 setHistorial(res.data.Medicines);
-        //             }
-        //         })
-        //         .catch(err => {
-        //             console.error("Ha ocurrido un error al cargar el historial", err);
-        //         });
-        // }
-    }, [autenticado, session_token]);
 
     return (
         <section className='bg-white p-3 rounded-lg mx-10 shadow-2xl h-full'>
             <p className='text-3xl mb-2 text-center text-[#1F4D36]'>Historial</p>
 
             <div className='flex flex-col gap-2 overflow-auto'>
-                {historial.length > 0? 
-                (<>
-                  {historial.map((entry, index) => (
-                    <div key={index} className={`w-full bg-[#${index % 2 ? '98c8d8' : 'FF6969'}] py-3 px-7 flex justify-between`}>
-                        <p>{entry.name_medicine}</p>
-                        <p>{entry.dose_day}</p>
-                        <p>{entry.dose_hour}</p>
-                    </div>
-                ))}
-                </>)
-                :
-                (<div className=' text-2xl font-semibold text-[#397b5a] text-center'>
-                <h2> No hay medicamentos en el Historial </h2> 
-                </div>)}
-              
+                <p>Historial de medicamentos:</p>
+                <ul>
+                    {medicines.map(medicine => (
+                        <li key={medicine.id_medicine}>
+                            <strong>Nombre:</strong> {medicine.name_medicine}<br />
+                            <strong>Tipo:</strong> {medicine.type_medicine}<br />
+                            <strong>Hora de la dosis:</strong> {medicine.dose_hour}<br />
+                            <strong>Fecha de la dosis:</strong> {medicine.dose_day}<br />
+                            <strong>Cantidad:</strong> {medicine.dose_quantity}<br />
+                            <strong>Comentarios:</strong> {medicine.comments}<br />
+                            <strong>Estado:</strong> {medicine.status}<br /><br />
+                        </li>
+                    ))}
+                </ul>
             </div>
         </section>
-    )
+    );
 }
 
 export default Historial;
