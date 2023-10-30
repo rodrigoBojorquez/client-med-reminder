@@ -42,11 +42,21 @@ function AddMedModal({ showAddMedModal, handleCloseModal }) {
             const sessionToken = localStorage.getItem("session_token")
             axios.post(`http://127.0.0.1:5000/medicines/${sessionToken}`, formData)
                 .then(res => {
-                    console.log(res)
                     setInfoMessage({
                         status:true,
                         title:"Perfecto",
                         message:res.data.Message
+                    })
+
+                    setFormData({
+                        name_medicine: '',
+                        type_medicine: '',
+                        dose_quantity: '',
+                        start_day: '',
+                        start_hour: '',
+                        doses_num: 0,
+                        doses_interval: 0,
+                        comments: '',
                     })
                 })
                 .catch(err => {
@@ -113,9 +123,9 @@ function AddMedModal({ showAddMedModal, handleCloseModal }) {
     return (
         showAddMedModal && (
             <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50 bg-opacity-50 bg-black">
-                <div className="z-50 bg-white w-[50%] p-4 rounded-lg shadow-md">
+                <div className="z-50 bg-white w-[60%] py-7 px-10 rounded-lg shadow-md">
                     <form onSubmit={handleAddMedicine}>
-                        <h2 className="text-4xl font-semibold mb-4 text-center m-5">Nuevo Medicamento</h2>
+                        <h2 className="text-4xl font-semibold mb-4 text-center">Nuevo Medicamento</h2>
                         <div className="mb-4">
                             <label htmlFor="nombreMed">Nuevo Medicamento</label>
                             <input
@@ -205,7 +215,7 @@ function AddMedModal({ showAddMedModal, handleCloseModal }) {
                             </div>
                         )}
                         {infoMessage.status && (
-                            <div className="mb-3">
+                            <div className="mb-3 text-center">
                                 <InfoAlert
                                     title={infoMessage.title}
                                     message={infoMessage.message}
@@ -213,10 +223,10 @@ function AddMedModal({ showAddMedModal, handleCloseModal }) {
                             </div>
                         )}
                         <div className="flex justify-center gap-5">
-                            <button type="button" onClick={handleCloseModal} className="bg-red-400 outline-none rounded-sm font-medium text-white px-5 py-2 w-[30%]">
+                            <button type="button" onClick={handleCloseModal} className="bg-red-400 outline-none rounded-md font-medium text-white px-5 py-2 w-[30%]">
                                 Cancelar
                             </button>
-                            <button type="submit" className="bg-blue-500 rounded-sm font-medium outline-none text-white px-4 py-2 w-[30%]">
+                            <button type="submit" className="bg-blue-500 rounded-md font-medium outline-none text-white px-4 py-2 w-[30%]">
                                 Guardar
                             </button>
                         </div>

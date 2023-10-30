@@ -1,46 +1,56 @@
 import React, { useState } from 'react';
-import MedicationDetail from './MedicationDetail'; // Import the MedicationDetail component
+import MedicationDetail from './MedicationDetail';
 
-function Manana() {
-  const TomarMedicina = [
-    { name: "Penicilina", description: "2 pastillas (250mg)", hora: "8:00" },
-    { name: "Amoxicilina", description: "1 pastilla (500mg)", hora: "8:30" },
-    { name: "Ibuprofen", description: "1 tablet (200mg)", hora: "9:00" },
-  ];
+function Manana({morning}) {
 
-  const [selectedMedication, setSelectedMedication] = useState(null);
+  const [viewDetails, setViewDetails] = useState(false)
+  const [selectedMedicine, setSelectedMedicine] = useState({
+    name_medicine: "",
+    dose_hour: "",
+    dose_quantity: "",
+    type_medicine: "",
+    comments: "",
+    status: ""
+  });
 
-  const openMedicationDetail = (medication) => {
-    setSelectedMedication(medication);
-  };
-
-  const closeMedicationDetail = () => {
-    setSelectedMedication(null);
-  };
+  const medicineDetails = medicine => {
+    setViewDetails(true)
+    setSelectedMedicine({
+      name_medicine: medicine.name_medicine,
+      dose_hour: medicine.dose_hour,
+      dose_quantity: medicine.dose_quantity,
+      type_medicine: medicine.type_medicine,
+      comments: medicine.comments,
+      status: medicine.status
+    })
+  }
 
   return (
-    <div className='bg-[#C0DBEA] p-6'>
-      <p>Mañana</p>
-      <div className="h-[300px] overflow-y-auto">
-        {TomarMedicina.map((medication, index) => {
-          return (
+    <div className='bg-[#C0DBEA] px-6 py-3 rounded-md'>
+      <p className='text-center text-lg font-medium mb-2'>Mañana</p>
+      <div className="h-[400px] overflow-y-auto">
+        {morning.map((medicine, index) =>
+          (
             <div
               className="bg-white p-4 mb-2 cursor-pointer"
               key={index}
-              onClick={() => openMedicationDetail(medication)}
+              onClick={() => medicineDetails(medicine)}
             >
-              <h1 className="text-center font-semibold text-2xl">{medication.hora}</h1>
-              <h3 className="text-center">{medication.name}</h3>
-              <p className="text-center">{medication.description}</p>
+              <h1 className="text-center font-semibold text-2xl">{medicine.dose_hour.substring(0, medicine.dose_hour.length - 3)}</h1>
+              <h3 className="text-center italic font-medium mb-3">{medicine.name_medicine}</h3>
+              <p className="text-center font-medium">{medicine.dose_quantity}</p>
             </div>
-          );
-        })}
+          )
+        )}
       </div>
-      <MedicationDetail
-        isOpen={selectedMedication !== null}
-        medication={selectedMedication}
-        onClose={closeMedicationDetail}
-      />
+      {viewDetails &&
+        (
+        <MedicationDetail
+          selectedMedicine={selectedMedicine}
+          setViewDetails={setViewDetails}
+        />
+        )
+      }
     </div>
   );
 }
