@@ -22,9 +22,9 @@ function Dosis() {
     }, []);
 
     return (
-        <article className='  bg-white p-3 rounded-lg mx-10 shadow-2xl flex flex-col h-full'>
+        <article className='  bg-white p-3 rounded-lg mx-10 shadow-2xl flex flex-col h-full o'>
             <h3 className=' text-3xl  text-[#1F4D36] text-center mb-3'>Próximas Dosis</h3>
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-2 overflow-auto'>
                 {medicinasPendientes.length > 0 ?
                     (<>
                         {medicinasPendientes.map((medicina, index) => (
