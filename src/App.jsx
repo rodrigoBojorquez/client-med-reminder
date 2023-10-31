@@ -1,14 +1,17 @@
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import Error404 from './components/Error404'
+
 
 // Rutas
 import AccountRecovery from './routes/AccountRecovery'
+import Calendario from './routes/Calendario'
+import EditProfile from './routes/EditProfile'
 import Home from './routes/Home'
 import IndexApp from './routes/IndexApp'
 import Login from './routes/Login'
 import ResetPassword from './routes/ResetPassword'
-import EditProfile from './routes/EditProfile'
 import SignUp from './routes/SignUp'
 
 function App() {
@@ -43,6 +46,9 @@ function App() {
         <Route path='/reset-password' element={<ResetPassword/>} />
         <Route path='/index' element={autenticado ? <IndexApp setAutenticado={setAutenticado}/> : <Navigate to="/login" />} />
         <Route path='/edit-profile' element={autenticado ? <EditProfile/> : <Navigate to="/login"/>}/>
+        <Route path='/calendar' element={autenticado ? <Calendario/> : <Navigate to="/login"/>}/>
+
+        <Route path='/*' element={<Error404/>} />
       </Routes>
     </BrowserRouter>
   )

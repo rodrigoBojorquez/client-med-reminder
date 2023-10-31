@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import BadAlert from './BadAlert'
 
 function FormLogin({ img, setAutenticado }) {
 
@@ -83,14 +84,14 @@ function FormLogin({ img, setAutenticado }) {
         </div>
 
         <div className='flex flex-col mt-12'>
-          {/* {errorMessage.status && (
+          {errorMessage.status && (
             <div className="mb-3">
               <BadAlert
                 title={errorMessage.title}
                 message={errorMessage.message}
               />
             </div>
-          )} */}
+          )}
 
           <button type="submit" className='bg-[#1F4D36] h-14 text-white text-xl rounded-lg mb-12'>
             Iniciar Sesión

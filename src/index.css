@@ -11,3 +11,8 @@ body {
     display:grid;
     grid-template-columns: 45% 10% 45% ;
   }
+
+  /* Estilos para la barra de desplazamiento */
+::-webkit-scrollbar {
+    width: 0px; /* Ancho de la barra de desplazamiento */
+}

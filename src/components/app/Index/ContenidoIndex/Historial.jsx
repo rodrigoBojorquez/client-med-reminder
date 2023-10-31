@@ -1,36 +1,47 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function Historial() {
+    const [history, setHistory] = useState([]);
+
+    const getHistory = () => {
+        const sessionToken = localStorage.getItem("session_token")
+        axios.get(`http://127.0.0.1:5000/medicines/taken/${sessionToken}`)
+            .then(res => {
+                setHistory(res.data.Medicines)
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    }
+
+
+    useEffect(() => {
+        getHistory()
+    }, []);
+
     return (
-        <section className='  bg-white p-3 rounded-lg mx-10 shadow-2xl h-full'>
-            <p className=' text-3xl mb-2 text-center text-[#1F4D36]'>Historial</p>
-
-            {/* Historial */}
-
-            <div className='flex flex-col gap-2 overflow-auto'>
-                <div className=' w-full bg-[#98c8d8] py-3 px-7 flex justify-between'>
-                    <p>Medicina</p>
-                    <p>dd/mm/yyyy</p>
-                    <p>hh:mm</p>
-                </div>
-                <div className=' w-full bg-[#FF6969] p-3 px-7 flex justify-between'>
-                    <p>Medicina</p>
-                    <p>dd/mm/yyyy</p>
-                    <p>hh:mm</p>
-                </div>
-                <div className=' w-full bg-[#98c8d8] p-3 px-7 flex justify-between'>
-                    <p>Medicina</p>
-                    <p>dd/mm/yyyy</p>
-                    <p>hh:mm</p>
-                </div>
-                <div className=' w-full bg-[#98c8d8] p-3 px-7 flex justify-between'>
-                    <p>Medicina</p>
-                    <p>dd/mm/yyyy</p>
-                    <p>hh:mm</p>
-                </div>
-            </div>
+        <section className='bg-white px-3 py-5 rounded-lg mx-10 shadow-2xl h-full'>
+            <p className='text-3xl mb-2 text-center text-[#1F4D36]'>Historial</p>
+                { history.length === 0 ?
+                (
+                <p className='text-center text-lg mt-10'>Aun no ha tomado ningún medicamento</p>
+                ) : (
+                <ul className='flex flex-col gap-2 overflow-auto'>
+                    {history.map(medicine => (
+                        <li key={medicine.id_medicine} className={ medicine.status === "a tiempo" ? 'bg-[#A6D0DD]' : "bg-[#FF6969]"}>
+                            <div className='flex justify-between py-2 px-7'>
+                                <p className='font-normal'>{medicine.name_medicine}</p>
+                                <p className='font-normal'>{medicine.dose_hour}</p>
+                                <p className='font-normal'>{medicine.dose_day}</p>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+                )
+                }
         </section>
-    )
+    );
 }
 
-export default Historial
+export default Historial;

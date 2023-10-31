@@ -6,16 +6,16 @@ function HomeIndex() {
 
 
   return (
-    <div className='bg-[#F2F4EA] grid grid-cols-2 shadow-2xl  p-16'>
+    <div className='bg-[#F2F4EA] h-[90vh] w-full grid grid-cols-2 shadow-2xl  p-16'>
       <div className='h-full'>
         <Medicinas />
       </div>
 
       <div className='flex flex-col justify-between'>
-        <div className='h-[40%] w-full'>
+        <div className='h-[48%] w-full'>
           <Dosis />
         </div>
-        <div className='h-[50%] w-full'>
+        <div className='h-[48%] w-full'>
           <Historial />
         </div>
       </div>

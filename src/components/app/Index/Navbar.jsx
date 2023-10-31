@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 // IMAGENES E ICONOS
 import Home from "../../../assets/icons/Home.svg"
 import calendar from "../../../assets/icons/calndar.svg"
+import LogoMedReminder from "../../../assets/icons/logo-pagina.svg"
 import logout from "../../../assets/icons/logout.svg"
 import user from "../../../assets/icons/user.svg"
-import LogoMedReminder from "../../../assets/icons/logo-pagina.svg"
 function Navbar({setAutenticado}) {
 
     const handleLogOut = () => {
