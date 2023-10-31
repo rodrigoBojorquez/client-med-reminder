@@ -12,7 +12,7 @@ function HomeIndex() {
       </div>
 
       <div className='flex flex-col justify-between'>
-        <div className='h-[48%] w-full'>
+        <div className='h-[48%] w-full mb-10'>
           <Dosis />
         </div>
         <div className='h-[48%] w-full'>
