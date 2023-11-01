@@ -14,7 +14,6 @@ function TablaMed() {
     const [morning, setMorning] = useState([])
     const [afternoon,setAfternoon] = useState([])
     const [evening, setEvening] = useState([])
-    const [editMedicine, setEditMedicine] = useState(false  )
 
     const getMedicinesDay = async () => {
         try {
@@ -104,17 +103,23 @@ function TablaMed() {
                         <div>
                             <Manana 
                                 morning={morning}
+                                setMedicines={setMedicines}
+                                date={date}
                             />
                         </div>
 
                         <div>
                             <Tarde 
-                                afternoon={afternoon}    
+                                afternoon={afternoon} 
+                                setMedicines={setMedicines}
+                                date={date}   
                             />
                         </div>
                         <div>
                             <Noche 
-                                evening={evening}         
+                                evening={evening}  
+                                setMedicines={setMedicines}
+                                date={date}         
                             />
                         </div>
                         {/* <div>

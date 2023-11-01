@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import BadAlert from "../../../BadAlert"
 import InfoAlert from "../../../InfoAlert"
 
-function AddMedModal({ showAddMedModal, handleCloseModal }) {
+function AddMedModal({ showAddMedModal, handleCloseModal, setEditMedicine }) {
     
     const [typeMedicines, setTypeMedicines] = useState([])
     const [formData, setFormData] = useState({

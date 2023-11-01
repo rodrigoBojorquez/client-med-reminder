@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import CloseImg from "../../../../assets/icons/close.svg"
 
-function MedicationDetail({selectedMedicine, setViewDetails}) {
+function MedicationDetail({selectedMedicine, setViewDetails, setEditMedicine}) {
 
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-50 bg-opacity-50 bg-black">
@@ -15,20 +15,21 @@ function MedicationDetail({selectedMedicine, setViewDetails}) {
           </div>
  
           <div className='flex flex-col gap-5'>
-            <p className='font-medium text-lg'>Descripción: 
-              <p className='font-normal mt-2'>{selectedMedicine.comments}</p>
-            </p>
-
-            <p className='font-medium text-lg'>Hora de Consumo: 
-              <p className='font-normal mt-2'>{selectedMedicine.dose_hour}</p>
-            </p>
+            <div>
+              <p className='font-medium text-lg'>Descripción:</p>
+              <p className='font-normal'>{selectedMedicine.comments}</p>
+            </div>
+            <div>
+              <p className='font-medium text-lg'>Hora de Consumo:</p>
+              <p className='font-normal'>{selectedMedicine.dose_hour}</p>
+            </div>
           </div>
 
           <div className='mt-4 flex gap-5 w-full justify-center'>
             <button  className="bg-green-500 text-white text-lg px-4 py-2 rounded-md w-[30%]">
               Tomada
             </button>
-            <button className='bg-blue-400 text-white px-4 py-2 text-lg rounded-md w-[30%]'>
+            <button onClick={() => setEditMedicine(true)} className='bg-blue-400 text-white px-4 py-2 text-lg rounded-md w-[30%]'>
               Editar
             </button>
           </div>

@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import MedicationDetail from './MedicationDetail';
+import EditMeModal from './EditMeModal';
 
-function Manana({morning}) {
+function Manana({morning, setMedicines, date}) {
 
   const [viewDetails, setViewDetails] = useState(false)
+  const [editMedicine, setEditMedicine] = useState(false)
   const [selectedMedicine, setSelectedMedicine] = useState({
     name_medicine: "",
     dose_hour: "",
     dose_quantity: "",
     type_medicine: "",
     comments: "",
-    status: ""
+    status: "",
+    medicine_group: ""
   });
 
   const medicineDetails = medicine => {
@@ -21,7 +24,8 @@ function Manana({morning}) {
       dose_quantity: medicine.dose_quantity,
       type_medicine: medicine.type_medicine,
       comments: medicine.comments,
-      status: medicine.status
+      status: medicine.status,
+      medicine_group: medicine.medicine_group
     })
   }
 
@@ -48,9 +52,19 @@ function Manana({morning}) {
         <MedicationDetail
           selectedMedicine={selectedMedicine}
           setViewDetails={setViewDetails}
+          setEditMedicine={setEditMedicine}
         />
         )
       }
+      {editMedicine && (
+        <EditMeModal 
+          setEditMedicine={setEditMedicine}
+          selectedMedicine={selectedMedicine}
+          setMedicines={setMedicines}
+          date={date}
+          setViewDetails={setViewDetails}
+        />
+      )}
     </div>
   );
 }
