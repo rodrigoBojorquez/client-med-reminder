@@ -67,6 +67,8 @@ function AddMedModal({ showAddMedModal, handleCloseModal }) {
                         message:err.response.data.Error
                     })
                 })
+
+            window.location.reload()
         }
         else {
             setErrorMessage({

@@ -14,6 +14,7 @@ function TablaMed() {
     const [morning, setMorning] = useState([])
     const [afternoon,setAfternoon] = useState([])
     const [evening, setEvening] = useState([])
+    const [editMedicine, setEditMedicine] = useState(false  )
 
     const getMedicinesDay = async () => {
         try {

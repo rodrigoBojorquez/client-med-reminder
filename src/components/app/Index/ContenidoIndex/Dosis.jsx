@@ -30,11 +30,11 @@ function Dosis() {
     }, []);
 
     // Función para ordenar las medicinas por la hora más cercana
-    const sortMedicinesByTime = (medicinas) => {
+    const sortMedicinesByTime = medicinas => {
         return medicinas.sort((a, b) => {
             // Parse the time strings into Date objects for comparison
-            const timeA = new Date(`2000-01-01T${a.dose_hour}`);
-            const timeB = new Date(`2000-01-01T${b.dose_hour}`);
+            const timeA = new Date(`${a.dose_hour}`);
+            const timeB = new Date(`${b.dose_hour}`);
             return timeA - timeB;
         });
     };
