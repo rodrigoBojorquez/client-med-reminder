@@ -13,7 +13,7 @@ function MedicationDetail({selectedMedicine, setViewDetails}) {
               <img src={CloseImg} alt="Close modal" />   
             </button> 
           </div>
-
+ 
           <div className='flex flex-col gap-5'>
             <p className='font-medium text-lg'>Descripción: 
               <p className='font-normal mt-2'>{selectedMedicine.comments}</p>
