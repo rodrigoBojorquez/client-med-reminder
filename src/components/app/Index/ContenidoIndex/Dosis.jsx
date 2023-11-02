@@ -51,18 +51,32 @@ function Dosis() {
     const sortedMedicines = sortMedicinesByTime(filteredMedicines);
 
     return (
-        <article className='bg-white p-3 rounded-lg mx-10 shadow-2xl flex flex-col h-60'>
+        <article className='bg-white    h-80 p-3 rounded-lg sm:mx-10 shadow-2xl flex flex-col  mt-10'>
             <h3 className='text-3xl text-[#1F4D36] text-center mb-3'>Próximas Dosis</h3>
+
             <select
                 value={selectedMedicine}
                 onChange={(e) => setSelectedMedicine(e.target.value)}
             >
+
                 <option value="">Todas las medicinas</option>
-                {uniqueMedicineNames.map((medicine, index) => (
-                    <option key={index} value={medicine}>
-                        {medicine}
-                    </option>
-                ))}
+                {uniqueMedicineNames > 0 ? (
+
+                    <>
+                        {uniqueMedicineNames.map((medicine, index) => (
+                            <option key={index} value={medicine}>
+                                {medicine}
+                            </option>
+                        ))}
+                    </>
+                ) : (
+                    <>
+                    <option value="ninguno" disabled>No hay medicinas programadas</option>
+                    </>
+                )
+
+
+                }
             </select>
             <div className='flex flex-col gap-4 overflow-auto m-1'>
                 {sortedMedicines.length > 0 ? (

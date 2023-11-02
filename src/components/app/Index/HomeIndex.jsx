@@ -6,7 +6,7 @@ function HomeIndex() {
 
 
   return (
-    <div className='bg-[#F2F4EA] h-[90vh] w-full grid grid-cols-2 shadow-2xl  p-16'>
+    <div className='bg-[#F2F4EA] w-full grid  sm:p-10 grid-cols-1 sm:grid-cols-2 shadow-2xl  '>
       <div className='h-full'>
         <Medicinas />
       </div>

@@ -20,7 +20,7 @@ function Historial() {
     }, []);
 
     return (
-        <section className='bg-white px-3 py-5 rounded-lg mx-10 shadow-2xl h-full'>
+        <section className='bg-white px-3 py-5 rounded-lg mt-2  sm:mx-10 shadow-2xl h-80'>
             <p className='text-3xl mb-2 text-center text-[#1F4D36]'>Historial</p>
             {history.length === 0 ? (
                 <p className='text-center text-lg mt-10'>Aún no ha tomado ningún medicamento</p>

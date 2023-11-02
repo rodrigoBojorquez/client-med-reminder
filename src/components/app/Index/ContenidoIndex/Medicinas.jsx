@@ -70,7 +70,7 @@ function Medicinas() {
     const aggregatedMedicinas = aggregateMedicinas(medicinas);
 
     return (
-        <div className='bg-white px-3 py-7 rounded-lg shadow-2xl h-full'>
+        <div className='bg-white sm:px-3 py-7 rounded-lg shadow-2xl h-full'>
             <h1 className='text-3xl text-center text-[#1F4D36] mb-7'>Tus Medicinas</h1>
 
             <div className='flex justify-between px-5 py-2 m-3 border-b-[3px] border-[#1F4D36] '>

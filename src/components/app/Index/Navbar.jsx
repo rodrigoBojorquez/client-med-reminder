@@ -16,7 +16,7 @@ function Navbar({setAutenticado}) {
 
     return (
         <div>
-            <nav className='bg-[#1F4D36] py-4 px-12 flex justify-between items-center'>
+            <nav className='bg-[#1F4D36] py-4 px-12 flex max-sm:flex-col max-sm:gap-5 justify-between items-center'>
 
                 <div className='flex items-center gap-3'>
                     <img src={LogoMedReminder} alt="Logo" />
