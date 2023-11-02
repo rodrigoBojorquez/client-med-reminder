@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import BadAlert from "../../../BadAlert"
-import InfoAlert from "../../../InfoAlert"
+import BadAlert from "../../../BadAlert";
+import InfoAlert from "../../../InfoAlert";
 
 function AddMedModal({ showAddMedModal, handleCloseModal }) {
-    
+
     const [typeMedicines, setTypeMedicines] = useState([])
     const [formData, setFormData] = useState({
         name_medicine: '',
@@ -37,15 +37,15 @@ function AddMedModal({ showAddMedModal, handleCloseModal }) {
             formData.start_hour !== '' &&
             formData.doses_num !== 0 &&
             formData.doses_interval !== 0
-        ){
+        ) {
             console.log(formData)
             const sessionToken = localStorage.getItem("session_token")
             axios.post(`http://127.0.0.1:5000/medicines/${sessionToken}`, formData)
                 .then(res => {
                     setInfoMessage({
-                        status:true,
-                        title:"Perfecto",
-                        message:res.data.Message
+                        status: true,
+                        title: "Perfecto",
+                        message: res.data.Message
                     })
 
                     setFormData({
@@ -62,9 +62,9 @@ function AddMedModal({ showAddMedModal, handleCloseModal }) {
                 .catch(err => {
                     console.error(err.response.data.Error)
                     setErrorMessage({
-                        status:true,
-                        title:"Oops",
-                        message:err.response.data.Error
+                        status: true,
+                        title: "Oops",
+                        message: err.response.data.Error
                     })
                 })
 
@@ -73,11 +73,11 @@ function AddMedModal({ showAddMedModal, handleCloseModal }) {
         else {
             setErrorMessage({
                 status: true,
-                title:"Oops",
-                message:"Todos los campos son necesarios"
+                title: "Oops",
+                message: "Todos los campos son necesarios"
             })
         }
-        
+
     }
 
     const getDatAndHour = () => {
@@ -85,7 +85,7 @@ function AddMedModal({ showAddMedModal, handleCloseModal }) {
         const day = now.toISOString().slice(0, 10);
         const hour = now.toLocaleTimeString();
 
-        setFormData({...formData, start_day: day, start_hour: hour})
+        setFormData({ ...formData, start_day: day, start_hour: hour })
     }
 
     const getTypeMedicines = () => {
@@ -97,8 +97,8 @@ function AddMedModal({ showAddMedModal, handleCloseModal }) {
                 console.log(err.response.data.Error)
             })
     }
- 
-    useEffect( ()=>{
+
+    useEffect(() => {
         getDatAndHour()
         getTypeMedicines()
     }, [])
@@ -125,10 +125,13 @@ function AddMedModal({ showAddMedModal, handleCloseModal }) {
     return (
         showAddMedModal && (
             <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50 bg-opacity-50 bg-black">
-                <div className="z-50 bg-white w-[60%] py-7 px-10 rounded-lg shadow-md">
+                <div className="z-50 bg-white w-[90%] sm:w-[60%] py-7 px-10 rounded-lg shadow-md">
                     <form onSubmit={handleAddMedicine}>
-                        <h2 className="text-4xl font-semibold mb-4 text-center">Nuevo Medicamento</h2>
+                        <h2 className="font-semibold mb-4 text-center">Nuevo Medicamento</h2>
                         <div className="mb-4">
+                            <div>
+                                <button onClick={handleCloseModal} className='absolute top-1 font-bold  right-10 text-4xl'>X</button>
+                            </div>
                             <label htmlFor="nombreMed">Nuevo Medicamento</label>
                             <input
                                 required
@@ -136,7 +139,7 @@ function AddMedModal({ showAddMedModal, handleCloseModal }) {
                                 id="nombreMed"
                                 name="name_medicine"
                                 value={formData.name_medicine}
-                                onChange={e => setFormData({...formData, name_medicine:e.target.value})}
+                                onChange={e => setFormData({ ...formData, name_medicine: e.target.value })}
                                 className="border p-2 w-full"
                             />
                         </div>
@@ -147,13 +150,13 @@ function AddMedModal({ showAddMedModal, handleCloseModal }) {
                                 name="type_medicine"
                                 className="border p-2 w-full text-center"
                                 value={formData.type_medicine}
-                                onChange={e => setFormData({...formData, type_medicine: e.target.value})}
+                                onChange={e => setFormData({ ...formData, type_medicine: e.target.value })}
                             >
                                 <option value="" defaultValue>-- Elige un tipo de medicina --</option>
-                                {typeMedicines.map((medicine, index) => (                               
+                                {typeMedicines.map((medicine, index) => (
                                     <option value={medicine} key={index}>
                                         {medicine.charAt(0).toUpperCase() + medicine.slice(1)}      {/*vuelve mayuscula la primera letra*/}
-                                    </option>                 
+                                    </option>
                                 ))}
                             </select>
                         </div>
@@ -165,7 +168,7 @@ function AddMedModal({ showAddMedModal, handleCloseModal }) {
                                 id="dosis"
                                 name="dose_quantity"
                                 value={formData.dose_quantity}
-                                onChange={e => setFormData({...formData, dose_quantity:e.target.value})}
+                                onChange={e => setFormData({ ...formData, dose_quantity: e.target.value })}
                                 className="border p-2 w-full"
                             />
                         </div>
@@ -178,7 +181,7 @@ function AddMedModal({ showAddMedModal, handleCloseModal }) {
                                     id="numDosis"
                                     name="doses_num"
                                     value={formData.doses_num}
-                                    onChange={e => setFormData({...formData, doses_num: parseInt(e.target.value)})}
+                                    onChange={e => setFormData({ ...formData, doses_num: parseInt(e.target.value) })}
                                     className="border p-2 w-full"
                                     min={1}
                                 />
@@ -191,7 +194,7 @@ function AddMedModal({ showAddMedModal, handleCloseModal }) {
                                     id="horas"
                                     name="doses_interval"
                                     value={formData.doses_interval}
-                                    onChange={e => setFormData({...formData, doses_interval: parseInt(e.target.value)})}
+                                    onChange={e => setFormData({ ...formData, doses_interval: parseInt(e.target.value) })}
                                     className="border p-2 w-full"
                                     min={1}
                                 />
@@ -203,7 +206,7 @@ function AddMedModal({ showAddMedModal, handleCloseModal }) {
                                 id="comentario"
                                 name="comments"
                                 value={formData.comments}
-                                onChange={e => setFormData({...formData, comments:e.target.value})}
+                                onChange={e => setFormData({ ...formData, comments: e.target.value })}
                                 className="border p-2 w-full"
                                 rows="3"
                             ></textarea>
@@ -225,10 +228,10 @@ function AddMedModal({ showAddMedModal, handleCloseModal }) {
                             </div>
                         )}
                         <div className="flex justify-center gap-5">
-                            <button type="button" onClick={handleCloseModal} className="bg-red-400 outline-none rounded-md font-medium text-white px-5 py-2 w-[30%]">
+                            <button type="button" onClick={handleCloseModal} className="bg-red-400 outline-none rounded-md font-medium text-white px-5 py-2 sm:w-[30%]">
                                 Cancelar
                             </button>
-                            <button type="submit" className="bg-blue-500 rounded-md font-medium outline-none text-white px-4 py-2 w-[30%]">
+                            <button type="submit" className="bg-blue-500 rounded-md font-medium outline-none text-white px-4 py-2 sm:w-[30%]">
                                 Guardar
                             </button>
                         </div>

@@ -6,8 +6,8 @@ function HomeIndex() {
 
 
   return (
-    <div className='bg-[#F2F4EA] w-full grid  sm:p-10 grid-cols-1 sm:grid-cols-2 shadow-2xl  '>
-      <div className='h-full'>
+    <div className='bg-[#F2F4EA]  w-full  grid  sm:p-10 grid-cols-1 sm:grid-cols-2   '>
+      <div className=''>
         <Medicinas />
       </div>
 
