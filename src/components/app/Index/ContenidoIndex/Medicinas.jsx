@@ -24,6 +24,28 @@ function Medicinas() {
             });
     }
 
+  
+
+    const deleteMedicina = (group) => {
+        const token = localStorage.getItem("session_token")
+        if (token !== null) {
+            axios.get(`http://127.0.0.1:5000/users/${token}`)
+            console.log(token)
+        }
+        axios.delete(`http://127.0.0.1:5000/medicines/${token}/${group}`)
+            .then(response => {
+                if (response.status === 200) {
+                    alert('se a eliminado correctamente la medicina')
+                    loadMedicinesUser();
+                } else {
+                    console.error('Error al eliminar medicina:', response.data);
+                }
+            })
+            .catch(error => {
+                console.error('Error al eliminar medicina:', error);
+            });
+    }
+
     useEffect(() => {
         loadMedicinesUser();
     }, []);
@@ -79,14 +101,23 @@ function Medicinas() {
                     {aggregatedMedicinas.length > 0 ? (
                         <>
                             {aggregatedMedicinas.map(medicina => (
-                                <p key={medicina.id_medicine} className='m-1 text-lg font-medium text-[#45474B]'>
-                                    {medicina.dose_quantity}
-                                </p>
+                                <div className='grid grid-cols-2' key={medicina.id_medicine}>
+                                    <p className='m-1 text-lg font-medium text-[#45474B]'>
+                                        {medicina.dose_quantity}
+                                    </p>
+                                    <button
+                                        className='p-2 bg-red-600 rounded-lg text-white'
+                                        onClick={() => deleteMedicina(medicina.medicine_group,)}
+                                    >
+                                        Eliminar
+                                    </button>
+                                </div>
                             ))}
                         </>
                     ) : (
                         <p className='text-center text-2xl'>No hay elementos añadidos</p>
                     )}
+
                 </div>
             </div>
 
