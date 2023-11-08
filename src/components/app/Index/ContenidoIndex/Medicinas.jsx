@@ -68,7 +68,7 @@ function Medicinas() {
                         </>
                     ) : (
                         <>
-                            <h2 className=' text-center text-2xl '> No hay Medicamentos añadidos</h2>
+                            <h2 className=' text-center text-lg p-5'> No hay Medicamentos añadidos</h2>
                         </>
                     )}
                 </div>
@@ -85,7 +85,7 @@ function Medicinas() {
                             ))}
                         </>
                     ) : (
-                        <p className='text-center text-2xl'>No hay elementos añadidos</p>
+                        <p className='text-center text-lg p-5'>No hay elementos añadidos</p>
                     )}
                 </div>
             </div>

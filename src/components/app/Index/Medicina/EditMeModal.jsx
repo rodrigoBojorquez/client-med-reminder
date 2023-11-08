@@ -11,8 +11,8 @@ function EditMeModal({ setEditMedicine, selectedMedicine, setMedicines, date, se
         dose_quantity: selectedMedicine.dose_quantity,
         start_day: selectedMedicine.start_day,
         start_hour: selectedMedicine.start_hour,
-        doses_num: 1,
-        doses_interval: 1,
+        day_doses: 0,
+        doses_interval: 0,
         comments: selectedMedicine.comments,
         medicine_group: selectedMedicine.medicine_group
     });
@@ -122,34 +122,36 @@ function EditMeModal({ setEditMedicine, selectedMedicine, setMedicines, date, se
                             className="border p-2 w-full"
                         />
                     </div>
-                    <div className="mb-4">
-                        <label htmlFor="tipoMed">Tipo de Medicina</label>
-                        <select
-                            id="tipoMed"
-                            name="type_medicine"
-                            className="border p-2 w-full text-center"
-                            value={formData.type_medicine}
-                            onChange={e => setFormData({ ...formData, type_medicine: e.target.value })}
-                        >
-                            <option value="" defaultValue>-- Elige un tipo de medicina --</option>
-                            {typeMedicines.map((medicine, index) => (
-                                <option value={medicine} key={index}>
-                                    {medicine.charAt(0).toUpperCase() + medicine.slice(1)}      {/*vuelve mayuscula la primera letra*/}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="dosis">Dosis</label>
-                        <input
-                            required
-                            type="text"
-                            id="dosis"
-                            name="dose_quantity"
-                            value={formData.dose_quantity}
-                            onChange={e => setFormData({ ...formData, dose_quantity: e.target.value })}
-                            className="border p-2 w-full"
-                        />
+                    <div className="grid grid-cols-2 gap-5">
+                        <div className="mb-4">
+                            <label htmlFor="dosis">Dosis</label>
+                            <input
+                                required
+                                type="text"
+                                id="dosis"
+                                name="dose_quantity"
+                                value={formData.dose_quantity}
+                                onChange={e => setFormData({ ...formData, dose_quantity: parseFloat(e.target.value) })}
+                                className="border p-2 w-full"
+                            />
+                        </div>
+                        <div className='flex flex-col'>
+                            <label htmlFor="tipoMed">Tipo de Medicina</label>
+                            <select
+                                id="tipoMed"
+                                name="type_medicine"
+                                className="border p-2 text-center h-1/2"
+                                value={formData.type_medicine}
+                                onChange={e => setFormData({ ...formData, type_medicine: e.target.value })}
+                            >
+                                <option value="" defaultValue>-- Elige un tipo de medicina --</option>
+                                {typeMedicines.map((medicine, index) => (
+                                    <option value={medicine} key={index}>
+                                        {medicine.charAt(0).toUpperCase() + medicine.slice(1)}      {/*vuelve mayuscula la primera letra*/}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
                     <div className='grid grid-cols-2 gap-5'>
                         <div className="mb-4">
@@ -159,8 +161,8 @@ function EditMeModal({ setEditMedicine, selectedMedicine, setMedicines, date, se
                                 type="number"
                                 id="numDosis"
                                 name="doses_num"
-                                value={formData.doses_num}
-                                onChange={e => setFormData({ ...formData, doses_num: parseInt(e.target.value) })}
+                                value={formData.day_doses}
+                                onChange={e => setFormData({ ...formData, day_doses: parseInt(e.target.value) })}
                                 className="border p-2 w-full"
                                 min={1}
                             />

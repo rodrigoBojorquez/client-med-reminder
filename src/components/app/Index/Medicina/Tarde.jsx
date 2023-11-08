@@ -42,7 +42,7 @@ function Tarde({afternoon, setMedicines, date}) {
             >
               <h1 className="text-center font-semibold text-2xl">{medicine.dose_hour.substring(0, medicine.dose_hour.length - 3)}</h1>
               <h3 className="text-center italic font-medium mb-3">{medicine.name_medicine}</h3>
-              <p className="text-center font-medium">{medicine.dose_quantity}</p>
+              <p className="text-center font-medium">{medicine.dose_quantity} <span>{medicine.type_medicine}</span></p>
             </div>
           )
         )}

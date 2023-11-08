@@ -9,14 +9,14 @@ function Dosis() {
         const token = localStorage.getItem("session_token");
         if (token !== null) {
             axios.get(`http://127.0.0.1:5000/medicines/pending/${token}`)
-                .then(res => {
+                .then(res => {  
                     if (res.data.Message === "Medicamentos pendientes") {
-                        const today = new Date(); // Obtener la fecha actual
+                        console.log(res)
                         const pendingMedicines = res.data.Data.filter(medicina => {
                             // Parse la fecha y hora de la medicina
                             const medicineDateTime = new Date(`${medicina.dose_day}T${medicina.dose_hour}`);
                             // Compara si la fecha de la medicina es mayor o igual a la fecha actual
-                            return medicineDateTime >= today;
+                            return medicineDateTime
                         });
                         setMedicinasPendientes(pendingMedicines);
                     } else {
@@ -78,7 +78,7 @@ function Dosis() {
                         ))}
                     </>
                 ) : (
-                    <div className='text-center font-semibold text-2xl text-[#397b5a]'>
+                    <div className='text-center text-lg p-5'>
                         <h2> No tienes dosis pendientes </h2>
                     </div>
                 )}

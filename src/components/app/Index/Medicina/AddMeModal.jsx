@@ -4,15 +4,15 @@ import BadAlert from "../../../BadAlert"
 import InfoAlert from "../../../InfoAlert"
 
 function AddMedModal({ showAddMedModal, handleCloseModal, setEditMedicine }) {
-    
+
     const [typeMedicines, setTypeMedicines] = useState([])
     const [formData, setFormData] = useState({
         name_medicine: '',
         type_medicine: '',
-        dose_quantity: '',
+        dose_quantity: 0,
         start_day: '',
         start_hour: '',
-        doses_num: 0,
+        day_doses: 0,
         doses_interval: 0,
         comments: '',
     });
@@ -32,20 +32,20 @@ function AddMedModal({ showAddMedModal, handleCloseModal, setEditMedicine }) {
         if (
             formData.name_medicine !== '' &&
             formData.type_medicine !== '' &&
-            formData.dose_quantity !== '' &&
+            formData.dose_quantity !== 0 &&
             formData.start_day !== '' &&
             formData.start_hour !== '' &&
             formData.doses_num !== 0 &&
             formData.doses_interval !== 0
-        ){
+        ) {
             console.log(formData)
             const sessionToken = localStorage.getItem("session_token")
             axios.post(`http://127.0.0.1:5000/medicines/${sessionToken}`, formData)
                 .then(res => {
                     setInfoMessage({
-                        status:true,
-                        title:"Perfecto",
-                        message:res.data.Message
+                        status: true,
+                        title: "Perfecto",
+                        message: res.data.Message
                     })
 
                     setFormData({
@@ -62,22 +62,22 @@ function AddMedModal({ showAddMedModal, handleCloseModal, setEditMedicine }) {
                 .catch(err => {
                     console.error(err.response.data.Error)
                     setErrorMessage({
-                        status:true,
-                        title:"Oops",
-                        message:err.response.data.Error
+                        status: true,
+                        title: "Oops",
+                        message: err.response.data.Error
                     })
                 })
 
-            window.location.reload()
+            setTimeout(() => window.location.reload(), 2000)
         }
         else {
             setErrorMessage({
                 status: true,
-                title:"Oops",
-                message:"Todos los campos son necesarios"
+                title: "Oops",
+                message: "Todos los campos son necesarios"
             })
         }
-        
+
     }
 
     const getDatAndHour = () => {
@@ -85,7 +85,7 @@ function AddMedModal({ showAddMedModal, handleCloseModal, setEditMedicine }) {
         const day = now.toISOString().slice(0, 10);
         const hour = now.toLocaleTimeString();
 
-        setFormData({...formData, start_day: day, start_hour: hour})
+        setFormData({ ...formData, start_day: day, start_hour: hour })
     }
 
     const getTypeMedicines = () => {
@@ -97,8 +97,8 @@ function AddMedModal({ showAddMedModal, handleCloseModal, setEditMedicine }) {
                 console.log(err.response.data.Error)
             })
     }
- 
-    useEffect( ()=>{
+
+    useEffect(() => {
         getDatAndHour()
         getTypeMedicines()
     }, [])
@@ -136,49 +136,51 @@ function AddMedModal({ showAddMedModal, handleCloseModal, setEditMedicine }) {
                                 id="nombreMed"
                                 name="name_medicine"
                                 value={formData.name_medicine}
-                                onChange={e => setFormData({...formData, name_medicine:e.target.value})}
+                                onChange={e => setFormData({ ...formData, name_medicine: e.target.value })}
                                 className="border p-2 w-full"
                             />
                         </div>
-                        <div className="mb-4">
-                            <label htmlFor="tipoMed">Tipo de Medicina</label>
-                            <select
-                                id="tipoMed"
-                                name="type_medicine"
-                                className="border p-2 w-full text-center"
-                                value={formData.type_medicine}
-                                onChange={e => setFormData({...formData, type_medicine: e.target.value})}
-                            >
-                                <option value="" defaultValue>-- Elige un tipo de medicina --</option>
-                                {typeMedicines.map((medicine, index) => (                               
-                                    <option value={medicine} key={index}>
-                                        {medicine.charAt(0).toUpperCase() + medicine.slice(1)}      {/*vuelve mayuscula la primera letra*/}
-                                    </option>                 
-                                ))}
-                            </select>
-                        </div>
-                        <div className="mb-4">
-                            <label htmlFor="dosis">Dosis</label>
-                            <input
-                                required
-                                type="text"
-                                id="dosis"
-                                name="dose_quantity"
-                                value={formData.dose_quantity}
-                                onChange={e => setFormData({...formData, dose_quantity:e.target.value})}
-                                className="border p-2 w-full"
-                            />
+                        <div className="grid grid-cols-2 gap-5">
+                            <div className="mb-4">
+                                <label htmlFor="dosis">Cantidad de dosis</label>
+                                <input
+                                    required
+                                    type="number"
+                                    id="dosis"
+                                    name="dose_quantity"
+                                    value={formData.dose_quantity}
+                                    onChange={e => setFormData({ ...formData, dose_quantity: parseFloat(e.target.value ) })}
+                                    className="border p-2 w-full"
+                                />
+                            </div>
+                            <div className='flex flex-col'>
+                                <label htmlFor="tipoMed">Tipo de Medicina</label>
+                                <select
+                                    id="tipoMed"
+                                    name="type_medicine"
+                                    className="border p-2 h-1/2 text-center"
+                                    value={formData.type_medicine}
+                                    onChange={e => setFormData({ ...formData, type_medicine: e.target.value })}
+                                >
+                                    <option value="" defaultValue>-- Elige un tipo de medicina --</option>
+                                    {typeMedicines.map((medicine, index) => (
+                                        <option value={medicine} key={index}>
+                                            {medicine.charAt(0).toUpperCase() + medicine.slice(1)}      {/*vuelve mayuscula la primera letra*/}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
                         </div>
                         <div className='grid grid-cols-2 gap-5'>
                             <div className="mb-4">
-                                <label htmlFor="numDosis">Número de Dosis</label>
+                                <label htmlFor="numDosis">¿Cuantos días?</label>
                                 <input
                                     required
                                     type="number"
                                     id="numDosis"
                                     name="doses_num"
                                     value={formData.doses_num}
-                                    onChange={e => setFormData({...formData, doses_num: parseInt(e.target.value)})}
+                                    onChange={e => setFormData({ ...formData, day_doses: parseInt(e.target.value) })}
                                     className="border p-2 w-full"
                                     min={1}
                                 />
@@ -191,7 +193,7 @@ function AddMedModal({ showAddMedModal, handleCloseModal, setEditMedicine }) {
                                     id="horas"
                                     name="doses_interval"
                                     value={formData.doses_interval}
-                                    onChange={e => setFormData({...formData, doses_interval: parseInt(e.target.value)})}
+                                    onChange={e => setFormData({ ...formData, doses_interval: parseInt(e.target.value) })}
                                     className="border p-2 w-full"
                                     min={1}
                                 />
@@ -203,7 +205,7 @@ function AddMedModal({ showAddMedModal, handleCloseModal, setEditMedicine }) {
                                 id="comentario"
                                 name="comments"
                                 value={formData.comments}
-                                onChange={e => setFormData({...formData, comments:e.target.value})}
+                                onChange={e => setFormData({ ...formData, comments: e.target.value })}
                                 className="border p-2 w-full"
                                 rows="3"
                             ></textarea>
