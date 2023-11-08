@@ -18,15 +18,7 @@ function Noche({evening, setMedicines, date}) {
 
   const medicineDetails = medicine => {
     setViewDetails(true)
-    setSelectedMedicine({
-      name_medicine: medicine.name_medicine,
-      dose_hour: medicine.dose_hour,
-      dose_quantity: medicine.dose_quantity,
-      type_medicine: medicine.type_medicine,
-      comments: medicine.comments,
-      status: medicine.status,
-      medicine_group: medicine.medicine_group
-    })
+    setSelectedMedicine(medicine)
   }
 
   return (
