@@ -1,0 +1,14 @@
+[
+    "Paracetamol",
+    "Ibuprofeno",
+    "Aspirina",
+    "Omeprazol",
+    "Amoxicilina",
+    "Loratadina",
+    "Atorvastatina",
+    "Metformina",
+    "Sertralina",
+    "Losartán",
+    "Metoprolol",
+    "Simvastatina"
+]

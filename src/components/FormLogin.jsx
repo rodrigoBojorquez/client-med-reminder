@@ -1,8 +1,8 @@
 import axios from 'axios'
+import { motion } from "framer-motion"
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import BadAlert from './BadAlert'
-
 function FormLogin({ img, setAutenticado }) {
 
   const [email, setEmail] = useState("")
@@ -47,14 +47,27 @@ function FormLogin({ img, setAutenticado }) {
     }
   }, [errorMessage.status]);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 1.5 } },
+  };
+
   return (
     <div className='bg-white flex rounded-lg drop-shadow-lg items-center'>
-      <form onSubmit={handleSubmitLogin} className='w-full py-10 lg:w-1/2 px-5 md:px-16'>
+      <motion.form
+
+        variants={containerVariants}
+        initial='hidden'
+        animate='visible'
+        onSubmit={handleSubmitLogin} className='w-full py-10 lg:w-1/2 px-5 md:px-16'>
         <h3 className='block text-4xl text-center lg:text-start font-medium italic mb-12'>Bienvenido de nuevo</h3>
 
         <div className='flex flex-col gap-2 mb-8'>
           <label htmlFor="email" className='text-xl'>Correo</label>
-          <input
+          <motion.input
+            whileHover={{ scale: 1.2 }}
+            onHoverStart={e => { }}
+            onHoverEnd={e => { }}
             type="email"
             placeholder="Escribe tu correo"
             id="email"
@@ -67,7 +80,10 @@ function FormLogin({ img, setAutenticado }) {
         </div>
         <div className='flex flex-col gap-2 mb-6'>
           <label htmlFor="password" className='text-xl'>Contraseña</label>
-          <input
+          <motion.input
+            whileHover={{ scale: 1.2 }}
+            onHoverStart={e => { }}
+            onHoverEnd={e => { }}
             type="password"
             placeholder="*****"
             id="password"
@@ -93,21 +109,30 @@ function FormLogin({ img, setAutenticado }) {
             </div>
           )}
 
-          <button type="submit" className='bg-[#1F4D36] h-14 text-white text-xl rounded-lg mb-12'>
+          <motion.button 
+          whileHover={{ scale: [null, 1.01, 1.02] }}
+          transition={{ duration: 0.3 }}
+          type="submit" className='bg-[#1F4D36] h-14 text-white text-xl rounded-lg mb-12'>
             Iniciar Sesión
-          </button>
+          </motion.button>
         </div>
 
         <p className='text-[#B1B1B1] italic font-medium text-lg text-center'>¿Aun no tienes cuenta? <Link to="/sign-up" className='text-[#45474B]'>Crear Cuenta</Link></p>
-      </form>
+      </motion.form>
 
-      <div className='w-1/2 p-1 hidden lg:block object-contain'>
+      <motion.div
+
+        variants={containerVariants}
+        initial='hidden'
+        animate='visible'
+        className='w-1/2 p-1 hidden lg:block object-contain'
+      >
         <img
           src={img}
           alt="Image login"
           className='bg-center object-cover rounded-r-lg drop-shadow-md'
         />
-      </div>
+      </motion.div>
     </div>
   )
 }

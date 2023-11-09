@@ -95,7 +95,6 @@ function Medicinas() {
                     Añadir más
                 </button>
             </div>
-
             <AddMedModal showAddMedModal={showAddMedModal} handleCloseModal={handleCloseModal} />
         </div>
     );
