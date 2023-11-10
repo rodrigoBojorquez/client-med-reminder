@@ -1,33 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-function Dosis() {
-    const [medicinasPendientes, setMedicinasPendientes] = useState([]);
+function Dosis({medicinasPendientes}) {
     const [selectedMedicine, setSelectedMedicine] = useState('');
 
-    useEffect(() => {
-        const token = localStorage.getItem("session_token");
-        if (token !== null) {
-            axios.get(`http://127.0.0.1:5000/medicines/pending/${token}`)
-                .then(res => {  
-                    if (res.data.Message === "Medicamentos pendientes") {
-                        console.log(res)
-                        const pendingMedicines = res.data.Data.filter(medicina => {
-                            // Parse la fecha y hora de la medicina
-                            const medicineDateTime = new Date(`${medicina.dose_day}T${medicina.dose_hour}`);
-                            // Compara si la fecha de la medicina es mayor o igual a la fecha actual
-                            return medicineDateTime
-                        });
-                        setMedicinasPendientes(pendingMedicines);
-                    } else {
-                        console.log("No se encontraron medicamentos pendientes");
-                    }
-                })
-                .catch(err => {
-                    console.error("Ha ocurrido un error", err);
-                });
-        }
-    }, []);
 
     // Función para ordenar las medicinas por la hora más cercana
     const sortMedicinesByTime = medicinas => {

@@ -1,10 +1,16 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import AddMedModal from '../Medicina/AddMeModal';
+import MedicationDetailEdit from '../Medicina/MedicationDetailEdit';
+import EditMeModal from "../Medicina/EditMeModal"
 
-function Medicinas() {
+function Medicinas({medicinasPendientes}) {
     const [medicinas, setMedicinas] = useState([]);
     const [showAddMedModal, setShowAddMedModal] = useState(false);
+    const [aggregatedMedicines, setAggregatedMedicines] = useState([])
+    const [showEditMeModal, setShowEditMeModal] = useState(false)
+    const [showDetails, setShowDetails] = useState(false)
+    const [selectedMedicine, setSelectedMedicine] = useState({})
 
     const handleAddMedClick = () => {
         setShowAddMedModal(true);
@@ -24,28 +30,42 @@ function Medicinas() {
             });
     }
 
+    const handleViewDetails = medicice => {
+        setSelectedMedicine(medicice)
+        setShowDetails(true)
+    }
+
+    const aggregateMedicinas = (medicinas) => {
+        const dosisFaltantes = []
+    
+        medicinas.forEach((medicina) => {
+            const buscarGrupo = dosisFaltantes.findIndex((inDosisFaltantes) =>
+                inDosisFaltantes.medicine_group === medicina.medicine_group
+            )
+    
+            if (buscarGrupo === -1) {
+                dosisFaltantes.push({
+                    name_medicine: medicina.name_medicine,
+                    medicine_group: medicina.medicine_group,
+                    dose_quantity: medicina.dose_quantity,
+                    type_medicine: medicina.type_medicine,
+                    comments: medicina.comments,
+                    quantity: 1
+                })
+            } else {
+                dosisFaltantes[buscarGrupo].quantity += 1
+            }
+        })
+    
+        setAggregatedMedicines(dosisFaltantes)
+    }      
     useEffect(() => {
         loadMedicinesUser();
     }, []);
 
-    const aggregateMedicinas = (medicinas) => {
-        const aggregated = {};
-        medicinas.forEach((medicina) => {
-            if (aggregated[medicina.name_medicine]) {
-                // Si ya tenemos un medicamento con el mismo nombre, suma la cantidad como número.
-                aggregated[medicina.name_medicine].dose_quantity += parseFloat(medicina.dose_quantity);
-            } else {
-                // Si es un medicamento nuevo, agrégalo al objeto de resultados.
-                aggregated[medicina.name_medicine] = { ...medicina };
-                // Asegúrate de que la dosis sea un número.
-                aggregated[medicina.name_medicine].dose_quantity = parseFloat(medicina.dose_quantity);
-            }
-        })
-
-        return Object.values(aggregated);
-    };
-
-    const aggregatedMedicinas = aggregateMedicinas(medicinas);
+    useEffect(() => {
+        aggregateMedicinas(medicinasPendientes)
+    }, [medicinasPendientes])
 
     return (
         <div className='bg-white px-3 py-7 rounded-lg shadow-2xl h-full'>
@@ -56,38 +76,28 @@ function Medicinas() {
                 <p className='text-[#45474B] text-xl font-medium'>Dosis Faltantes</p>
             </div>
 
-            <div className='gridT mx-10'>
-                <div className='flex justify-center flex-col items-center gap-3'>
-                    {aggregatedMedicinas.length > 0 ? (
-                        <>
-                            {aggregatedMedicinas.map(medicina => (
-                                <p key={medicina.id_medicine} className='m-1 text-lg text-center font-medium text-[#45474B]'>
-                                    {medicina.name_medicine}
-                                </p>
-                            ))}
-                        </>
-                    ) : (
-                        <>
-                            <h2 className=' text-center text-lg p-5'> No hay Medicamentos añadidos</h2>
-                        </>
-                    )}
-                </div>
-
-                <div className='border-r-[3px] border-[#1F4D36] ml-5 w-auto'></div>
-
-                <div className='flex items-center flex-col justify-center gap-3'>
-                    {aggregatedMedicinas.length > 0 ? (
-                        <>
-                            {aggregatedMedicinas.map(medicina => (
-                                <p key={medicina.id_medicine} className='m-1 text-lg font-medium text-[#45474B]'>
-                                    {medicina.dose_quantity}
-                                </p>
-                            ))}
-                        </>
-                    ) : (
-                        <p className='text-center text-lg p-5'>No hay elementos añadidos</p>
-                    )}
-                </div>
+            <div className='mx-14 flex flex-col h-[65%] items-center gap-3'>
+                {aggregatedMedicines.length > 0 ? (
+                    <>
+                        {aggregatedMedicines.map((medicina, index) => (
+                            <div key={index} className='w-full hover:cursor-pointer' onClick={() => handleViewDetails(medicina)}>
+                                <div className='flex justify-between w-full mb-2'>
+                                    <p className='m-1 text-lg text-center font-medium text-[#45474B]'>
+                                        {medicina.name_medicine}
+                                    </p>
+                                    <p className='m-1 text-lg font-medium text-[#45474B]'>
+                                        {medicina.quantity}
+                                    </p>
+                                </div>
+                                <hr className='border-[1px] border-[#45474B] w-full' />
+                            </div>
+                        ))}
+                    </>
+                ) : (
+                    <>
+                        <h2 className=' text-center text-lg p-5'> No hay Medicamentos añadidos</h2>
+                    </>
+                )}
             </div>
 
             <div className='flex justify-center mt-5'>
@@ -95,6 +105,21 @@ function Medicinas() {
                     Añadir más
                 </button>
             </div>
+
+            {showDetails && (
+                <MedicationDetailEdit
+                    setViewDetails={setShowDetails}
+                    setEditMedicine={setShowEditMeModal}
+                    selectedMedicine={selectedMedicine}
+                />
+            )}
+            {showEditMeModal && (
+                <EditMeModal 
+                    setViewDetails={setShowDetails}
+                    setEditMedicine={setShowEditMeModal}
+                    selectedMedicine={selectedMedicine}
+                />
+            )}
 
             <AddMedModal showAddMedModal={showAddMedModal} handleCloseModal={handleCloseModal} />
         </div>

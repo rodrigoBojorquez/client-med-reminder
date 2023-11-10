@@ -27,17 +27,6 @@ function EditMeModal({ setEditMedicine, selectedMedicine, setMedicines, date, se
         message: "",
     });
 
-    const getMedicinesDay = async () => {
-        try {
-            const sessionToken = localStorage.getItem("session_token");         
-            const response = await axios.get(`http://127.0.0.1:5000/medicines/${sessionToken}/calendar/${date}`) 
-            setMedicines(response.data.Data)
-        }
-        catch (err) {
-            // console.error(err)
-        }
-    };
-
     const handleEditMedicine = e => {
         e.preventDefault()
         const sessionToken = localStorage.getItem("session_token")
@@ -49,9 +38,10 @@ function EditMeModal({ setEditMedicine, selectedMedicine, setMedicines, date, se
                     title:"Perfecto",
                     message:res.data.Message
                 })
-                getMedicinesDay()
                 setViewDetails(false)
                 setTimeout(()=> setEditMedicine(false), 2000)
+                console.log(res)
+                window.location.reload()
             })
             .catch(err => {
                 console.error(err.response.data.Error)
@@ -84,7 +74,7 @@ function EditMeModal({ setEditMedicine, selectedMedicine, setMedicines, date, se
     useEffect( ()=>{
         getDatAndHour()
         getTypeMedicines()
-    }, [])
+    }, [])  
 
     // REINICIA EL MENSAJE DE ERROR
     useEffect(() => {
@@ -123,64 +113,64 @@ function EditMeModal({ setEditMedicine, selectedMedicine, setMedicines, date, se
                         />
                     </div>
                     <div className="grid grid-cols-2 gap-5">
-                        <div className="mb-4">
-                            <label htmlFor="dosis">Dosis</label>
-                            <input
-                                required
-                                type="text"
-                                id="dosis"
-                                name="dose_quantity"
-                                value={formData.dose_quantity}
-                                onChange={e => setFormData({ ...formData, dose_quantity: parseFloat(e.target.value) })}
-                                className="border p-2 w-full"
-                            />
+                            <div className="mb-4">
+                                <label htmlFor="dosis">Cantidad de dosis</label>
+                                <input
+                                    required
+                                    type="number"
+                                    id="dosis"
+                                    name="dose_quantity"
+                                    value={formData.dose_quantity}
+                                    onChange={e => setFormData({ ...formData, dose_quantity: parseFloat(e.target.value ) })}
+                                    className="border p-2 w-full"
+                                />
+                            </div>
+                            <div className='flex flex-col'>
+                                <label htmlFor="tipoMed">Tipo de Medicina</label>
+                                <select
+                                    id="tipoMed"
+                                    name="type_medicine"
+                                    className="border p-2 h-1/2 text-center"
+                                    value={formData.type_medicine}
+                                    onChange={e => setFormData({ ...formData, type_medicine: e.target.value })}
+                                >
+                                    <option value="" defaultValue>-- Elige un tipo de medicina --</option>
+                                    {typeMedicines.map((medicine, index) => (
+                                        <option value={medicine} key={index}>
+                                            {medicine.charAt(0).toUpperCase() + medicine.slice(1)}      {/*vuelve mayuscula la primera letra*/}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
                         </div>
-                        <div className='flex flex-col'>
-                            <label htmlFor="tipoMed">Tipo de Medicina</label>
-                            <select
-                                id="tipoMed"
-                                name="type_medicine"
-                                className="border p-2 text-center h-1/2"
-                                value={formData.type_medicine}
-                                onChange={e => setFormData({ ...formData, type_medicine: e.target.value })}
-                            >
-                                <option value="" defaultValue>-- Elige un tipo de medicina --</option>
-                                {typeMedicines.map((medicine, index) => (
-                                    <option value={medicine} key={index}>
-                                        {medicine.charAt(0).toUpperCase() + medicine.slice(1)}      {/*vuelve mayuscula la primera letra*/}
-                                    </option>
-                                ))}
-                            </select>
+                        <div className='grid grid-cols-2 gap-5'>
+                            <div className="mb-4">
+                                <label htmlFor="numDosis">¿Cuantos días?</label>
+                                <input
+                                    required
+                                    type="number"
+                                    id="numDosis"
+                                    name="doses_num"
+                                    value={formData.day_doses}
+                                    onChange={e => setFormData({ ...formData, day_doses: parseInt(e.target.value) })}
+                                    className="border p-2 w-full"
+                                    min={1}
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label htmlFor="horas">Cada Cuántas Horas</label>
+                                <input
+                                    required
+                                    type="number"
+                                    id="horas"
+                                    name="doses_interval"
+                                    value={formData.doses_interval}
+                                    onChange={e => setFormData({ ...formData, doses_interval: parseInt(e.target.value) })}
+                                    className="border p-2 w-full"
+                                    min={1}
+                                />
+                            </div>
                         </div>
-                    </div>
-                    <div className='grid grid-cols-2 gap-5'>
-                        <div className="mb-4">
-                            <label htmlFor="numDosis">Número de Dosis</label>
-                            <input
-                                required
-                                type="number"
-                                id="numDosis"
-                                name="doses_num"
-                                value={formData.day_doses}
-                                onChange={e => setFormData({ ...formData, day_doses: parseInt(e.target.value) })}
-                                className="border p-2 w-full"
-                                min={1}
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <label htmlFor="horas">Cada Cuántas Horas</label>
-                            <input
-                                required
-                                type="number"
-                                id="horas"
-                                name="doses_interval"
-                                value={formData.doses_interval}
-                                onChange={e => setFormData({ ...formData, doses_interval: parseInt(e.target.value) })}
-                                className="border p-2 w-full"
-                                min={1}
-                            />
-                        </div>
-                    </div>
                     <div className="mb-4">
                         <label htmlFor="comentario">Comentarios</label>
                         <textarea

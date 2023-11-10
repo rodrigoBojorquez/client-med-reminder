@@ -28,13 +28,13 @@ function Tarde({afternoon, setMedicines, date}) {
         {afternoon.map((medicine, index) =>
           (
             <div
-              className="bg-white p-4 mb-2 cursor-pointer"
+              className={"bg-white p-4 mb-2 cursor-pointer"}
               key={index}
               onClick={() => medicineDetails(medicine)}
             >
-              <h1 className="text-center font-semibold text-2xl">{medicine.dose_hour.substring(0, medicine.dose_hour.length - 3)}</h1>
-              <h3 className="text-center italic font-medium mb-3">{medicine.name_medicine}</h3>
-              <p className="text-center font-medium">{medicine.dose_quantity} <span>{medicine.type_medicine}</span></p>
+              <h1 className={medicine.status === "atrasado" ? "text-center font-semibold text-2xl text-red-500" : medicine.status === "a tiempo" ? "text-center font-semibold text-2xl text-green-500" : "text-center font-semibold text-2xl"}>{medicine.dose_hour.substring(0, medicine.dose_hour.length - 3)}</h1>
+              <h3 className={medicine.status === "atrasado" ? "text-center  italic font-medium mb-3  text-red-500" : medicine.status === "a tiempo" ? "text-center  italic font-medium mb-3  text-green-500" : "text-center  italic font-medium mb-3 "}>{medicine.name_medicine}</h3>
+              <p className={medicine.status === "atrasado" ? "text-center  font-medium  text-red-500" : medicine.status === "a tiempo" ? "text-center  font-medium  text-green-500" : "text-center  font-medium"}>{medicine.dose_quantity} <span>{medicine.type_medicine}</span></p>
             </div>
           )
         )}
