@@ -46,26 +46,20 @@ function Home() {
 
         <div className='flex gap-4 items-center'>
           <Link to={"/sign-up"}>
-            <motion.button
+            <button
               className='px-5 py-2 rounded-full border-2 border-[#1F4D36] text-[#1F4D36] text-lg font-medium'
-              variants={buttonVariants}
-              whileHover={{ scale: 1.2 }}
-              onHoverStart={e => { }}
-              onHoverEnd={e => { }}
+            
             >
               Crea tu cuenta
-            </motion.button>
+            </button>
           </Link>
           <Link to={"/login"}>
-            <motion.button
+            <button
               className='px-5 py-2 rounded-full border-2 border-[#1F4D36] text-[#1F4D36] text-lg font-medium'
-              variants={buttonVariants}
-              whileHover={{ scale: 1.2 }}
-              onHoverStart={e => { }}
-              onHoverEnd={e => { }}
+           
             >
               Inicia Sesión
-            </motion.button>
+            </button>
           </Link>
         </div>
       </header>
@@ -91,15 +85,12 @@ function Home() {
             Con Med-Reminder, te brindamos una plataforma fácil de usar y altamente personalizable que se adapta a tus necesidades individuales. Ya sea que necesites llevar un registro de tus propios medicamentos o administrar la toma de medicamentos de un ser querido, nuestra aplicación te facilitará la vida.
           </motion.p>
           <Link to={"/login"}>
-            <motion.button
+            <button
               className='px-5 py-2 rounded-2xl border-2 bg-[#1F4D36] text-white text-lg font-extralight w-1/3 mb-10'
-              variants={buttonVariants}
-              whileHover={{ scale: 1.2 }}
-              onHoverStart={e => { }}
-              onHoverEnd={e => { }}
+              
             >
               Inicia Sesion
-            </motion.button>
+            </button>
           </Link>
         </motion.article>
 

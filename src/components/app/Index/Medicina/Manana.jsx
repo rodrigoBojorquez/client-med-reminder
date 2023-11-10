@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import MedicationDetail from './MedicationDetail';
 import EditMeModal from './EditMeModal';
+import MedicationDetail from './MedicationDetail';
 
 function Manana({morning, setMedicines, date}) {
 
