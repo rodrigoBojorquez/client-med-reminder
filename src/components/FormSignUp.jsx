@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import InfoAlert from './InfoAlert';
 import BadAlert from './BadAlert';
-
-function FormSignUp({ img}) {
+import InfoAlert from './InfoAlert';
+function FormSignUp({ img }) {
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -78,8 +78,16 @@ function FormSignUp({ img}) {
         }
     }, [infoMessage.status]);
 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { duration: 1.5 } },
+    };
     return (
-        <div className='bg-white flex rounded-lg drop-shadow-lg items-center'>
+        <motion.div
+            variants={containerVariants}
+            initial='hidden'
+            animate='visible'
+            className='bg-white flex rounded-lg drop-shadow-lg items-center'>
             <form onSubmit={handleSubmitSignUp} className='w-full py-10 lg:w-1/2 px-5 md:px-16'>
                 <h3 className='block text-4xl text-center lg:text-start font-medium italic mb-12'>Crea tu cuenta</h3>
 
@@ -180,7 +188,7 @@ function FormSignUp({ img}) {
                     className='bg-center object-cover rounded-r-lg drop-shadow-md'
                 />
             </div>
-        </div>
+        </motion.div>
     )
 }
 
